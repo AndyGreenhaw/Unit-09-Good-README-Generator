@@ -6,9 +6,12 @@
     // Call that function, pass in the data it needs, and get back markdown code.
     // Add the markdown code to the README file
 
-    var inquirer = require("inquirer");
-    var fs = require("fs");
+var inquirer = require("inquirer");
+var fs = require("fs");
 
+/////////////////////////////
+// ALL QUESTIONS IN OBJECT //
+/////////////////////////////
 
 const questions = [
     {
@@ -50,15 +53,18 @@ const questions = [
         message: "Choose which licence you would like to use for your application.",
         choices: ["GNU AGPLv2", "GNU GPLv3", "GNU LGPLv3", "Mozilla Public License 2.0", "Apache License 2.0", "MIT License", "Boost Software License 1.0", "The Unlicense"]
     },
-
 ];
+
+///////////////////
+// PROMPT STARTS //
+///////////////////
+
+inquirer.prompt(questions)
 
 // function to write README file
 function writeToFile(fileName, data) {
-
-    
+    console.log(response);
       
-    
 };
 
 // function to initialize program
