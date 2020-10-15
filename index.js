@@ -6,72 +6,78 @@
     // Call that function, pass in the data it needs, and get back markdown code.
     // Add the markdown code to the README file
 
-var inquirer = require("inquirer");
-var fs = require("fs");
-
-/////////////////////////////
-// ALL QUESTIONS IN OBJECT //
-/////////////////////////////
+    var inquirer = require("inquirer");
+    var fs = require("fs");
 
 const questions = [
     {
         type: "input",
         message: "What is the name of your application",
-        name: "## Application"
+        name: "appName"
     },
     {
         type: "input",
         message: "Describe your application's primary purpose.",
-        name: "## Description"
+        name: "appDescription"
     },
     {
         type: "input",
         message: "Explain how the user will install this application",
-        name: "## Installation",
+        name: "appInstallation",
     },
     {
         type: "input",
         message: "Explain how the user will use this application",
-        name: "## Usage",
-    },
-    {
-        type: "boolean",
-        message: "Would you like your Contributing section to use the Contributor Covenant Code of Conduct?",
-        name: "CovenantContributing"
+        name: "appUsage",
     },
     {
         type: "input",
         message: "Please enter your Contributing guidelines.",
-        name: "## Contributing",
+        name: "appContributing",
     },
     {
         type: "input",
         message: "Provide any test instructions you'd like to include in your README.",
-        name: "## Tests",
+        name: "appTests",
     },
-    {    type: "list",
+    {   type: "list",
         message: "Choose which licence you would like to use for your application.",
-        choices: ["GNU AGPLv2", "GNU GPLv3", "GNU LGPLv3", "Mozilla Public License 2.0", "Apache License 2.0", "MIT License", "Boost Software License 1.0", "The Unlicense"]
+        choices: ["GNU AGPLv2", "GNU GPLv3", "GNU LGPLv3", "Mozilla Public License 2.0", "Apache License 2.0", "MIT License", "Boost Software License 1.0", "The Unlicense"],
+        name: "applicense"
     },
 ];
 
-///////////////////
-// PROMPT STARTS //
-///////////////////
 
-inquirer.prompt(questions)
+inquirer.prompt(questions).then(function(response){
+    console.log(response);
+
+    var textForFile = "## Project Title: " + response.appName + "\n" + "\n";
+        textForFile = textForFile + "## Description" + "\n" + "\n" + response.appDescription + "\n" + "\n";
+        textForFile = textForFile + "## Installation" + "\n" + "\n" + response.appInstallation + "\n" + "\n";
+        textForFile = textForFile + "## Usage" + "\n"  + "\n" + response.appUsage + "\n" + "\n";
+        textForFile = textForFile + "## Contributing" + "\n" + "\n" + response.appContributing + "\n" + "\n";
+        textForFile = textForFile + "## Tests" + "\n"  + "\n" + response.appTests + "\n" + "\n";
+        textForFile = textForFile + "## License" + "\n"  + "\n" + JSON.stringify(response.appLicense);
+
+    fs.writeFile("NewREADME.md", textForFile, function(err){
+        if(err){
+            return console.log(err);
+        }
+
+        console.log("File Written")
+    })
+
+
+    })
+
 
 // function to write README file
-function writeToFile(fileName, data) {
-    console.log(response);
-      
-};
 
-// function to initialize program
-function init() {
-};
 
-// function call to initialize program
+//function to initialize program
+function init() {};
+
+//function call to initialize program
 init();
 
 
