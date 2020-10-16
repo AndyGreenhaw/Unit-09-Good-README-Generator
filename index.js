@@ -1,13 +1,5 @@
-// array of questions for user
-
-// Ask all the questions
-// Start generating README file
-    // What item of the README am I writing (subhead, link, etc.)
-    // Call that function, pass in the data it needs, and get back markdown code.
-    // Add the markdown code to the README file
-
-    var inquirer = require("inquirer");
-    var fs = require("fs");
+const inquirer = require("inquirer");
+const fs = require("fs");
 
 const questions = [
     {
@@ -42,7 +34,15 @@ const questions = [
     },
     {   type: "list",
         message: "Choose which licence you would like to use for your application.",
-        choices: ["GNU AGPLv2", "GNU GPLv3", "GNU LGPLv3", "Mozilla Public License 2.0", "Apache License 2.0", "MIT License", "Boost Software License 1.0", "The Unlicense"],
+        choices: [
+            "GNU AGPLv2", 
+            "GNU GPLv3", 
+            "GNU LGPLv3", 
+            "Mozilla Public License 2.0", 
+            "Apache License 2.0", 
+            "MIT License", 
+            "The Unlicense"
+        ],
         name: "appLicense"
     },
     {   type: "input",
@@ -55,12 +55,42 @@ const questions = [
     },
 ];
 
+// [User Story ](##-User-Story)
 
 inquirer.prompt(questions).then(function(response){
     console.log(response);
 
     var textForFile = "## Project Title: " + response.appName + "\n" + "\n";
-        textForFile = textForFile + "## Table of Contents" + "\n" + "1) Description" + "\n" + "2) Installation" + "\n" + "3) Usage" + "\n" + "4) Contributing" + "\n" + "5) Tests" + "\n" + "6) License" + "\n" + "7) Contact" + "\n" + "\n";
+    var licenseBadge;
+
+            if(response.appLicense === "GNU AGPLv2"){
+                licenseBadge = "![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)"
+            } else if (response.appLicense === "GNU GPLv3"){
+                licenseBadge = "![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)"
+            } else if (response.appLicense === "GNU LGPLv3"){
+                licenseBadge = "![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)"
+            } else if (response.appLicense === "Mozilla Public License 2.0"){
+                licenseBadge = "![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)"
+            } else if (response.appLicense === "Apache License 2.0"){
+                licenseBadge = "![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)"
+            } else if (response.appLicense === "MIT License"){
+                licenseBadge = "![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)"
+            } else if (response.appLicense ===  "The Unlicense"){
+                licenseBadge = null;
+            }
+
+        textForFile = textForFile + licenseBadge + "\n" + "\n";
+        
+        textForFile = textForFile + 
+        "## Table of Contents" + "\n" + "\n" +
+        "( * ) [Description](##-Description)" + "\n" +  "\n" +
+        "( * ) [Installation](##-Installation)" + "\n" +  "\n" +
+        "( * ) [Usage](##-Usage)" + "\n"  + "\n" +
+        "( * ) [Contributing](##-Contributing)" + "\n" +  "\n" +
+        "( * ) [Tests](##-Tests)" + "\n" +  "\n" +
+        "( * ) [License](##-License)" + "\n" +  "\n" +
+        "( * ) [Contact](##-Contact)" + "\n" + "\n" + "\n";
+
         textForFile = textForFile + "## Description" + "\n" + "\n" + response.appDescription + "\n" + "\n";
         textForFile = textForFile + "## Installation" + "\n" + "\n" + response.appInstallation + "\n" + "\n";
         textForFile = textForFile + "## Usage" + "\n"  + "\n" + response.appUsage + "\n" + "\n";
@@ -74,15 +104,14 @@ inquirer.prompt(questions).then(function(response){
             return console.log(err);
         }
 
-        console.log("File Written")
-    })
-
+        console.log("Your README File Has Been Written")
 
     })
 
 
-// function to write README file
+    })
 
+// These init functions were included in the original homework project code
 
 //function to initialize program
 function init() {};
@@ -90,10 +119,3 @@ function init() {};
 //function call to initialize program
 init();
 
-
-
-// fs is a Node standard library package for reading and writing files
-
-
-// return the contents of 'data.csv' as a string in the variable "data"
-// "utf8" encodes the raw buffer data in human-readable format
