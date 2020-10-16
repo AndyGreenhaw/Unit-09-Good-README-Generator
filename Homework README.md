@@ -29,6 +29,9 @@ To install the application, you will need to clone this repo from Andy Greenhaw�
 
 ## Usage
 
+Watch this video demo to see Andy's README Generator in action: 
+[https://drive.google.com/file/d/1nsF0CIaEDMLOhtCpulf-iftqOp_J3P9q/view]
+
 To run the application, type ‘node index’ into your terminal, and hit enter. You will be prompted with a series of prompts in your terminal related to the contents of your README. Answer each prompt with the appropriate information, and hit enter after each entry. After completing all the prompts, your terminal will inform you that your file has been written, and a new Markdown File called NewREADME.md will be generated within this project folder, which you can modify as needed.
 
 ## Contributing
